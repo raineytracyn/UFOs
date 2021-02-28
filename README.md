@@ -1,5 +1,4 @@
 # UFOs
-# JavaScript Homework - JavaScript and DOM Manipulation
 
 ## Overview of the Project
 ### This provides a more in-depth analysis of UFO sightings by allowing users to filter for multiple criteria at the same time. In addition to the date, table filters have been added for the city, state, country, and shape.
@@ -7,6 +6,7 @@
 - A written report on the UFO analysis
 
 ## Results
+### By adding additional filters, an end-user will spend less time manually reading through each line to find what he or she wants. It also enables an end user to do a quick anaylsis of what areas see more acitivies verses others by the number of submissions.
 
 ## Summary
 ### Now, the page looks clean and allows the end user to filter through the different sightings in our data set using the search bars created. 
@@ -16,4 +16,4 @@
 
 ## Recommendations
 - Recommendation: To have additional information on how many people were at the site.
-- Recommendation: Adding another filter to find the sightings by length and last but not least have a site that would be constantly updating our data adding new sightings to our page.
+- Recommendation: Adding another filter to determine sightings by region. There are many areas where a sightening can be seen from the next state over.
