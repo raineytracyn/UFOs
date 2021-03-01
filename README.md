@@ -4,10 +4,11 @@
 ### This provides a more in-depth analysis of UFO sightings by allowing users to filter for multiple criteria at the same time. In addition to the date, table filters have been added for the city, state, country, and shape.
 - Filter UFO sightings on multiple criteria
 - A written report on the UFO analysis
-
 ## Results
 ### By adding additional filters, an end-user will spend less time manually reading through each line to find what he or she wants. It also enables an end user to do a quick anaylsis of what areas see more acitivies verses others by the number of submissions.
-
+###### ![front_page](https://github.com/raineytracyn/UFOs/blob/main/static/images/front_page.png)
+### Here are three examples of the webpage in use:
+###### ![Working_Sample](https://github.com/raineytracyn/UFOs/blob/main/static/images/Working_Sample.png)
 ## Summary
 ### Now, the page looks clean and allows the end user to filter through the different sightings in our data set using the search bars created. 
 
