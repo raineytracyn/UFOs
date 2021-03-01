@@ -1,69 +1,60 @@
-// from data.js
-var tableData = data;
+// import data from data.js
+const tableData = data;
+// Ref HTML table(output) using d3 library
+var tbody = d3.select('tbody');
+// Fx of populate data into html table
+function buildTable(data) {
+    // init table data
+    tbody.html('');
 
-// YOUR CODE HERE!
-var tbody = d3.select("tbody");
-var button = d3.select("#filter-btn");
-var inputField1 = d3.select("#datetime");
-var inputField2 = d3.select("#city");
-var inputField3 = d3.select("#state");
-var inputField4 = d3.select("#country");
-var inputField5 = d3.select("#shape");
-var resetbtn = d3.select("#reset-btn");
-var columns = ["datetime", "city", "state", "country", "shape", "durationMinutes", "comments"]
+    // 1st array loop for <tr>
+    data.forEach((dataRow) => {
+        let row = tbody.append('tr'); //html
+        //second loop for <td>
+        Object.values(dataRow).forEach((val) =>{
+            let cell = row.append('td'); //html
+            // d3 funtion 
+            cell.text(val);
+        });
+    });
 
-var populate = (dataInput) => {
+};
+// Track filters
+var filters = {};
+function updateFilters() {
+    // Save element, value, & id of the filter that was changed
+        let inputElement = d3.select(this);
+        let inputID = inputElement.attr("id");
+        let inputValue = inputElement.property("value");
+        // Create an if-else statement to add filter data from input
+        if (inputValue) {
+            filters[inputID] = inputValue;
+        } else{filters ={};};
+    //console.log(filters)
+    // Call fx to apply all filters and rebuild the table
+    filterTable(filters);
+};
 
-	dataInput.forEach(ufo_sightings => {
-		var row = tbody.append("tr");
-		columns.forEach(column => row.append("td").text(ufo_sightings[column])
-		)
-	});
-}
+function filterTable(obj) {
 
-//Populate table
-populate(data);
+    // Set the filteredData to the tableData
+    let filteredData = tableData;
+    // Loop through the filters and keep any data that
+    // matches the filter values
 
-// Filter by attribute
-button.on("click", () => {
-	d3.event.preventDefault();
-	var inputDate = inputField1.property("value").trim();
-	var inputCity = inputField2.property("value").toLowerCase().trim();
-	var inputState = inputField3.property("value").toLowerCase().trim();
-	var inputCountry = inputField4.property("value").toLowerCase().trim();
-	var inputShape = inputField5.property("value").toLowerCase().trim();
-	// Filter by field matching input value
-	var filterDate = data.filter(data => data.datetime === inputDate);
-	console.log(filterDate)
-	var filterCity = data.filter(data => data.city === inputCity);
-	console.log(filterCity)
-	var filterState = data.filter(data => data.state === inputState);
-	console.log(filterState)
-	var filterCountry = data.filter(data => data.country === inputCountry);
-	console.log(filterCountry)
-	var filterShape = data.filter(data => data.shape === inputShape);
-	console.log(filterShape)
-	// Add filtered sighting to table
-	tbody.html("");
+    Object.entries(obj).forEach(([fkey, fval]) =>{
+        
+        filteredData = filteredData.filter((row) => row[fkey] === fval)
+    
+    });
 
-	let response = {
-		filterData, filterCity, filterDate, filterState, filterCountry, filterShape
-	}
+    // Finally, rebuild table using the filtered Data
+    buildTable(filteredData);
+};
 
-	if (response.filterData.length !== 0) {
-		populate(filterData);
-	}
-		else if (response.filterData.length === 0 && ((response.filterCity.length !== 0 || response.filterDate.length !== 0 || response.filterState.length !== 0 || response.filterCountry.length !== 0 || response.filterShape.length !== 0))){
-			populate(filterCity) || populate(filterDate) || populate(filterState) || populate(filterCountry) || populate(filterShape);
-	
-		}
-		else {
-			tbody.append("tr").append("td").text("No results found!"); 
-		}
-})
 
-resetbtn.on("click", () => {
-	tbody.html("");
-	populate(data)
-	console.log("Table reset")
-})
+
+// d3 event handling
+d3.selectAll("input").on("change",updateFilters);
+// show original table when page loads, before event triggerd
+buildTable(tableData);
